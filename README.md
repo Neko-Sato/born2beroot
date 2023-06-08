@@ -58,11 +58,20 @@ $ sudo sed s/# usercheck = 1/usercheck = 1/ /etc/security/pwquality.conf
 $ sudo sed s/# enforce_for_root/enforce_for_root/ /etc/security/pwquality.conf
 # 前のパスワードじゃない７つの文字が必要
 $ sudo sed s/# difok = 1/difok = 7/ /etc/security/pwquality.conf
+
+# パスワードを再設定する
+$ sudo passwd root
+$ sudo passwd [user_name]
 ```
 
 ## sudoグループの設定
 ```
-# 以下を追記
+# 下コードを追記
+# 三回までトライできる
+# エラー時のコメント
+# ログの出力先
+# ttyのやつ
+# なんかディレクトリの保護
 $ sudo visudo
 ```
 ```
@@ -72,3 +81,20 @@ Defaults	logfile=/var/log/sudo/
 Defaults	requiretty
 Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 ```
+
+## monitoring.shの作成
+```
+$ sudo apt install net-tools
+```
+- OSのアーキテクチャとそのカーネルバージョン
+- 物理プロセッサの数
+- 仮想プロセッサーの数
+- サーバーで現在使用可能なRAMとその使用率（パーセント）
+- サーバー上の現在の利用可能なメモリとその使用率（パーセント）
+- プロセッサーの現在の使用率（パーセント）
+- 最後のリブートの日付と時刻
+- LVMがアクティブかどうか
+- アクティブな接続数
+- サーバーを使用しているユーザー数
+- サーバーのIPv4アドレスとそのMAC（Media Access Control）アドレス
+- sudoプログラムで実行されたコマンドの数
