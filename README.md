@@ -1,3 +1,7 @@
+## OSのインストール
+- ホスト名は42で終わるようにする
+- 暗号化されたパーティションを作る
+
 ## sudoの設定
 ```
 $ su -
@@ -38,8 +42,8 @@ $ sudo adduser [user_name] user42
 # pam_pwqualityをインストール
 $ sudo apt install pam_pwquality
 # 有効期限を30日, 変更不可期限を2日, 通知を7日前に(default)
-$ sudo sed s/#PASS_MAX_DAYS  99999/PASS_MAX_DAYS   30/ /etc/login.defs
-$ sudo sed s/#PASS_MIN_DAYS  0/PASS_MIN_DAYS  2/ /etc/login.defs
+$ sudo sed s/PASS_MAX_DAYS  99999/PASS_MAX_DAYS   30/ /etc/login.defs
+$ sudo sed s/PASS_MIN_DAYS  0/PASS_MIN_DAYS  2/ /etc/login.defs
 # 長さの最小値を10に
 $ sudo sed s/# minlen = 8/minlen = 10/ /etc/security/pwquality.conf
 # 大小英数が含まれている必要がある
@@ -65,5 +69,6 @@ $ sudo visudo
 Defaults	passwd_tries = 3
 Defaults	badpass_message="You're a fucking fake."
 Defaults	logfile=/var/log/sudo/
+Defaults	requiretty
 Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 ```
