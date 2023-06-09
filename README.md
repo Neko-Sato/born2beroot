@@ -82,9 +82,13 @@ Defaults	requiretty
 Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 ```
 
-## monitoring.shの作成
+## monitoring.sh
 ```
-$ sudo apt install net-tools
+# 以下を追記
+$ sudo crontab -e
+```
+```
+*/10 * * * * bash monitoring.sh
 ```
 - OSのアーキテクチャとそのカーネルバージョン
 - 物理プロセッサの数
@@ -98,3 +102,4 @@ $ sudo apt install net-tools
 - サーバーを使用しているユーザー数
 - サーバーのIPv4アドレスとそのMAC（Media Access Control）アドレス
 - sudoプログラムで実行されたコマンドの数
+
