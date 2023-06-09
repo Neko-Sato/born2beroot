@@ -9,8 +9,8 @@ wall "\
 	#CPU load: $(top -bn 1 | awk -F '[ ,]' 'NR==3 { printf("%.1f%%", $3) }')
 	#Last boot: $(who -b | awk '$1 == "system" { printf("%s %s", $3, $4) }')
 	#LVM use: $(if $(lsblk | grep "lvm" | wc -l); then echo no; else echo yes; fi)
-	#Connections TCP : 
-	#User log: 
-	#Network: 
-	#Sudo : 
+	#Connections TCP : $(cat /proc/net/sockstat | awk '$1 == "TCP:" { printf("%d ESTABLISHED", $3) }')
+	#User log: $(users | wc -w)
+	#Network: $(hostname -I) $(ip link show | awk '/link\/ether/ { print $2 }')
+	#Sudo : $(sudo journalctl -q _COMM=sudo | grep COMMAND | wc -lc) cmd
 "
