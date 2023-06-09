@@ -89,7 +89,7 @@ Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/b
 $ sudo crontab -e
 ```
 ```
-*/10 * * * * bash monitoring.sh
+*/10 * * * * bash ~/monitoring.sh
 ```
 - OSのアーキテクチャとそのカーネルバージョン
 - 物理プロセッサの数
