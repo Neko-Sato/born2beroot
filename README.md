@@ -1,3 +1,4 @@
+# Mandatory
 ## OSのインストール
 - ホスト名は42で終わるようにする
 - 暗号化されたパーティションを作る
@@ -103,3 +104,4 @@ $ sudo crontab -e
 - サーバーのIPv4アドレスとそのMAC（Media Access Control）アドレス
 - sudoプログラムで実行されたコマンドの数
 
+# Bonus
