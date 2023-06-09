@@ -66,7 +66,7 @@ $ sudo passwd [user_name]
 
 ## sudoグループの設定
 ```
-# 下コードを追記
+# 次コードを追記
 # 三回までトライできる
 # エラー時のコメント
 # ログの出力先
@@ -84,7 +84,7 @@ Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/b
 
 ## monitoring.sh
 ```
-# 以下を追記
+# 次のコードを追記
 $ sudo crontab -e
 ```
 ```
