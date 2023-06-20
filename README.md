@@ -134,8 +134,7 @@ $ sudo mysql_secure_installation
 > exit;
 ```
 
-/etc/lighttpd/lighttpd.confに追記
-```
+``` /etc/lighttpd/lighttpd.confに追記
 server.modules += ( "mod_fastcgi" )
 
 fastcgi.server = (
