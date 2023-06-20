@@ -121,6 +121,7 @@ $ sudo rm -rf latest-ja.tar.gz ~/wordpress
 $ sudo ufw allow 80
 # 下記設定を追記
 $ sudo vim /etc/lighttpd/lighttpd.conf
+# sudo service lighttpd restart
 # dbのセットアップ
 $ sudo mysql_secure_installation
 # sudo mariadb
