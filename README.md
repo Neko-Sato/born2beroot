@@ -85,11 +85,13 @@ Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/b
 
 ## monitoring.sh
 ```
+$ wget https://raw.githubusercontent.com/Neko-Sato/born2beroot/main/monitoring.sh
+$ sudo mv monitoring.sh /usr/local/bin/ 
 # 次のコードを追記
 $ sudo crontab -e
 ```
 ```
-*/10 * * * * bash /home/[user_name]/monitoring.sh
+*/10 * * * * bash /usr/local/bin/monitoring.sh
 ```
 - OSのアーキテクチャとそのカーネルバージョン
 - 物理プロセッサの数
