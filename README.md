@@ -105,3 +105,43 @@ $ sudo crontab -e
 - sudoプログラムで実行されたコマンドの数
 
 # Bonus
+セットアップ時に指定通りのパーティションになるようにする
+```
+# インストール
+$ sudo apt install lighttpd php-fpm php-mysqlnd mariadb-server
+# 所有者変更
+$ chown -R www-data:www-data /var/www/
+# WordPressのダウンロード
+$ wget https://ja.wordpress.org/latest-ja.tar.gz
+$ tar -zxvf latest-ja.tar.gz
+$ sudo rm -rf /var/www/html/*
+$ sudo cp -r ~/wordpress/* /var/www/html
+$ sudo rm -rf latest-ja.tar.gz ~/wordpress
+# ポートの開放
+$ sudo ufw allow 80
+# 下記設定を追記
+$ sudo vim /etc/lighttpd/lighttpd.conf
+# dbのセットアップ
+$ sudo mysql_secure_installation
+# sudo mariadb
+> CREATE USER 'wordpress'@'localhost' IDENTIFIED BY 'wordpress';
+> CREATE DATABASE wordpress;
+> GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost';
+> FLUSH PRIVILEGES;
+> exit;
+```
+
+/etc/lighttpd/lighttpd.confに追記
+```
+server.modules += ( "mod_fastcgi" )
+
+fastcgi.server = (
+	".php" => (
+		"localhost" => ( 
+		"socket" => "/run/php/php-fpm.sock",
+		"broken-scriptfilename" => "enable"
+	))
+)
+```
+http://localhost/
+にて設定
