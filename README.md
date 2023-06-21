@@ -107,7 +107,23 @@ $ sudo crontab -e
 - sudoプログラムで実行されたコマンドの数
 
 # Bonus
-セットアップ時に指定通りのパーティションになるようにする
+- パーティション
+マニュアル設定にて
+以下のようにパーティションを作成
+-- 基本	500M	ext2 /boot
+-- 理論	max		crypt
+ボリュームの暗号化
+暗号化ボリュームをlvmにする
+LVMGroupを作成し以下を作成
+-- root		10G		ext4 /
+-- swap		2.3G	swap
+-- home		5G		ext4 /home
+-- var		3G		ext4 /var
+-- srv		3G		ext4 /svr
+-- tmp		3G		ext4 /tmp
+-- var-log	4G		ext4 /var/log
+
+- WordPress
 ```
 # インストール
 $ sudo apt install lighttpd php-fpm php-mysqlnd mariadb-server
