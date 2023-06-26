@@ -15,9 +15,9 @@ $ adduser [user_name] sudo
 ## sshの設定
 ```
 # sshのポートを変更
-$ sudo sed s/#Port 22/Port 4242/ /etc/sshd_config
+$ sudo sed s/#Port 22/Port 4242/ /etc/ssh/sshd_config
 # rootでのログインを不可に
-$ sudo sed s/#PermitRootLogin prohibit-password/PermitRootLogin no/ /etc/sshd_config
+$ sudo sed s/#PermitRootLogin prohibit-password/PermitRootLogin no/ /etc/ssh/sshd_config
 # 反映
 $ sudo service ssh restart
 ```
@@ -40,8 +40,8 @@ $ sudo adduser [user_name] user42
 
 ## パスワードポリシーの設定
 ```
-# pam_pwqualityをインストール
-$ sudo apt install pam_pwquality
+# libpam_pwqualityをインストール
+$ sudo apt install libpam_pwquality
 # 有効期限を30日, 変更不可期限を2日, 通知を7日前に(default)
 $ sudo sed s/PASS_MAX_DAYS  99999/PASS_MAX_DAYS   30/ /etc/login.defs
 $ sudo sed s/PASS_MIN_DAYS  0/PASS_MIN_DAYS  2/ /etc/login.defs
@@ -78,7 +78,7 @@ $ sudo visudo
 ```
 Defaults	passwd_tries = 3
 Defaults	badpass_message="You're a fucking fake."
-Defaults	logfile=/var/log/sudo/
+Defaults	logfile=/var/log/sudo
 Defaults	requiretty
 Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 ```
