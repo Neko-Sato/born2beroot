@@ -14,10 +14,10 @@ $ adduser [user_name] sudo
 
 ## sshの設定
 ```
-# sshのポートを変更
-$ sudo sed s/#Port 22/Port 4242/ /etc/ssh/sshd_config
-# rootでのログインを不可に
-$ sudo sed s/#PermitRootLogin prohibit-password/PermitRootLogin no/ /etc/ssh/sshd_config
+# sshのポートを変更 rootでのログインを不可に
+$ sudo sed -i /etc/ssh/sshd_config\
+$ -e "s/#Port 22/Port 4242/"\
+$ -e "s/#PermitRootLogin prohibit-password/PermitRootLogin no/" 
 # 反映
 $ sudo service ssh restart
 ```
@@ -41,25 +41,28 @@ $ sudo adduser [user_name] user42
 ## パスワードポリシーの設定
 ```
 # libpam_pwqualityをインストール
-$ sudo apt install libpam_pwquality
+$ sudo apt install libpam-pwquality
 # 有効期限を30日, 変更不可期限を2日, 通知を7日前に(default)
-$ sudo sed s/PASS_MAX_DAYS  99999/PASS_MAX_DAYS   30/ /etc/login.defs
-$ sudo sed s/PASS_MIN_DAYS  0/PASS_MIN_DAYS  2/ /etc/login.defs
+$ sudo sed -i /etc/login.defs\
+$ -e "s/PASS_MAX_DAYS  99999/PASS_MAX_DAYS   30/"\
+$ -e "s/PASS_MIN_DAYS  0/PASS_MIN_DAYS  2/"
+$ sudo passwd -x 30 -n 2 root
+$ sudo passwd -x 30 -n 2 [user_name]
 # 長さの最小値を10に
-$ sudo sed s/# minlen = 8/minlen = 10/ /etc/security/pwquality.conf
 # 大小英数が含まれている必要がある
-$ sudo sed s/# lcredit = 0/lcredit = -1/ /etc/security/pwquality.conf
-$ sudo sed s/# ucredit = 0/ucredit = -1/ /etc/security/pwquality.conf
-$ sudo sed s/# dcredit = 0/dcredit = -1/ /etc/security/pwquality.conf
 # 3文字以上連続して同じ文字が使われてはならない
-$ sudo sed s/# maxrepeat = 0/maxrepeat = 3/ /etc/security/pwquality.conf
 # ユーザー名が使われてはならない
-$ sudo sed s/# usercheck = 1/usercheck = 1/ /etc/security/pwquality.conf
 # rootにも適応させる
-$ sudo sed s/# enforce_for_root/enforce_for_root/ /etc/security/pwquality.conf
 # 前のパスワードじゃない７つの文字が必要
-$ sudo sed s/# difok = 1/difok = 7/ /etc/security/pwquality.conf
-
+$ sudo -i /etc/security/pwquality.conf\
+$ -e sed "s/# minlen = 8/minlen = 10/"\
+$ -e "s/# lcredit = 0/lcredit = -1/"\
+$ -e "s/# ucredit = 0/ucredit = -1/"\
+$ -e "s/# dcredit = 0/dcredit = -1/"\
+$ -e "s/# maxrepeat = 0/maxrepeat = 3/"\
+$ -e "s/# usercheck = 1/usercheck = 1/"\
+$ -e "s/# enforce_for_root/enforce_for_root/"\
+$ -e "s/# difok = 1/difok = 7/"
 # パスワードを再設定する
 $ sudo passwd root
 $ sudo passwd [user_name]
@@ -67,6 +70,7 @@ $ sudo passwd [user_name]
 
 ## sudoグループの設定
 ```
+$ sudo mkdir /var/log/sudo/
 # 次コードを追記
 # 三回までトライできる
 # エラー時のコメント
@@ -74,11 +78,13 @@ $ sudo passwd [user_name]
 # ttyのやつ
 # なんかディレクトリの保護
 $ sudo visudo
+$ sudo apt
+$ sudo chmod +r /var/log/sudo/sudo.log
 ```
 ```
 Defaults	passwd_tries = 3
 Defaults	badpass_message="You're a fucking fake."
-Defaults	logfile=/var/log/sudo
+Defaults	logfile=/var/log/sudo/sudo.log
 Defaults	requiretty
 Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 ```

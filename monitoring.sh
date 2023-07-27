@@ -12,5 +12,5 @@ wall "\
 	#Connections TCP : $(cat /proc/net/sockstat | awk '$1 == "TCP:" { printf("%d ESTABLISHED", $3) }')
 	#User log: $(users | wc -w)
 	#Network: $(hostname -I) $(ip link show | awk '/link\/ether/ { print $2 }')
-	#Sudo : $(cat /var/log/sudo | grep COMMAND= | wc -l) cmd
+	#Sudo : $(cat /var/log/sudo/sudo.log | grep COMMAND= | wc -l) cmd
 "
